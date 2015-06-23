@@ -30,6 +30,14 @@ def EAR(rate,periods):
     ear = math.pow((1+rate/periods),periods)-1
     return ear
 
+def NPV(cashflow,rate):
+    temp = 0;
+    for index, item in enumerate(cashflow):
+        temp += item/math.pow((1+rate),index)
+    return round(temp,0)
+
+cf = [-1000,1320,1452]
+
 print(payment(14000-2500,0.08/12,48))
 print(Presentpayment(0.08/12,24,632))
 print(payment(Presentpayment(0.08/12,24,280),0.05/12,24))
@@ -42,6 +50,7 @@ p1 = PV(1600,0.05,1)
 test1 = annuity(5000001,25,0.08)
 #print (test1)
 print (Futurepayment(0.07,19,4100))
+print (NPV(cf,0.1))
 #print ('Buy:'+str(f1))
 #jeff
 #print ('Untouch:'+str(f2))  #marge
