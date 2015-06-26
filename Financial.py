@@ -35,22 +35,28 @@ def NPV(cashflow,rate):
     for index, item in enumerate(cashflow):
         temp += item/math.pow((1+rate),index)
     return round(temp,0)
+# 简单二分法求解irr
+def IRR(cashflow):
+    upper = 1;
+    lower =0;
+    threshold = 1e-8;
+    while(abs(upper-lower)>threshold):
+        uppervalue = NPV(cashflow,upper)
+        lowervalue = NPV(cashflow,lower)
+        midvalue = NPV(cashflow,((upper+lower)/2))
+        midpoint = (upper+lower)/2
+        if(midvalue==0):
+            return round((upper+lower)/2,5)
+        if((lowervalue*midvalue)<0):
+            upper = midpoint
+        if((uppervalue*midvalue)<0):
+            lower = midpoint
 
-cf = [-1000,1320,1452]
+    return round(midpoint,5)
 
-print(payment(14000-2500,0.08/12,48))
-print(Presentpayment(0.08/12,24,632))
-print(payment(Presentpayment(0.08/12,24,280),0.05/12,24))
-print(payment(Presentpayment(0.08/12,24,280),0.08/12,24))
-f1= FV(37160.26,0.06,1)
-f2 =FV(18000,0.07,3)*0.27
-f3 = FV(55000,0.08,12)
-p1 = PV(1600,0.05,1)
+print(IRR([-100, 39, 59, 55, 20]))
 
-test1 = annuity(5000001,25,0.08)
-#print (test1)
-print (Futurepayment(0.07,19,4100))
-print (NPV(cf,0.1))
+cf = [-100, 39, 59, 55, 20]
 #print ('Buy:'+str(f1))
 #jeff
 #print ('Untouch:'+str(f2))  #marge
