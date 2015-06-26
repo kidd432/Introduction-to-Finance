@@ -35,7 +35,7 @@ def NPV(cashflow,rate):
     for index, item in enumerate(cashflow):
         temp += item/math.pow((1+rate),index)
     return round(temp,0)
-# 简单二分法求解irr
+
 def IRR(cashflow):
     upper = 1;
     lower =0;
@@ -54,8 +54,19 @@ def IRR(cashflow):
 
     return round(midpoint,5)
 
-print(IRR([-100, 39, 59, 55, 20]))
+def discountpaybackperiod(payment,annualsaving,rate):
+    i = 2
+    while(payment<0):
+        payment += annualsaving/(math.pow((1+rate),i))
+        i = i +1
 
+    return i
+
+print (discountpaybackperiod(-5150,1300,0.06))
+print(IRR([-10600,400, 500,1400, 2500,2500,4000,4000]))
+lawn = [-1900,506,506,506,506,506,506,506,506,506,506,506,506,506]
+
+print(NPV(lawn,0.1/52))
 cf = [-100, 39, 59, 55, 20]
 #print ('Buy:'+str(f1))
 #jeff
