@@ -33,6 +33,7 @@ def EAR(rate,periods):
 def NPV(cashflow,rate):
     temp = 0;
     for index, item in enumerate(cashflow):
+
         temp += item/math.pow((1+rate),index)
     return round(temp,0)
 
@@ -62,12 +63,23 @@ def discountpaybackperiod(payment,annualsaving,rate):
 
     return i
 
-print (discountpaybackperiod(-5150,1300,0.06))
-print(IRR([-10600,400, 500,1400, 2500,2500,4000,4000]))
-lawn = [-1900,506,506,506,506,506,506,506,506,506,506,506,506,506]
+def PAF(rate,growth,period):
+    a1 = 1/(rate-growth)
+    a2 = 1-(math.pow((1+growth),period)/math.pow((1+rate),period))
+    return a1*a2
 
-print(NPV(lawn,0.1/52))
-cf = [-100, 39, 59, 55, 20]
+HPVn = 23000*PAF(0.07,0.04,45)
+print(HPVn)
+
+totaltuionpv = 14000+NPV([FV(14000,0.05,1),FV(14000,0.05,2),FV(14000,0.05,3)],0.07)
+print(totaltuionpv)
+
+livingpv = NPV([8000,8500,9000,9500],0.07)
+print(livingpv)
+
+CPVn = 43000*PAF(0.07,0.04,41)
+print(CPVn)
+print(752726.58-livingpv-totaltuionpv-HPVn)
 #print ('Buy:'+str(f1))
 #jeff
 #print ('Untouch:'+str(f2))  #marge
